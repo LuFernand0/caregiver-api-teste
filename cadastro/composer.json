@@ -1,0 +1,9 @@
+{
+    "name": "cad/cadastro",
+    "description": "Cadastro - Microserviços",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
