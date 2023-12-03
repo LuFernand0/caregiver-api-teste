@@ -47,7 +47,7 @@ class Cpf
             return throw new \Exception("CPF invalido!");
         }
 
-        return true;
+        return $this->cpf = $cpf;
     }
 
     public function __toString(): string

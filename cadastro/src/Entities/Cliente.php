@@ -2,7 +2,9 @@
 
 namespace App\Entities;
 
+use App\ValueObjects\Celular;
 use App\ValueObjects\Cpf;
+use App\ValueObjects\Data_nasc;
 use App\ValueObjects\Email;
 use App\ValueObjects\Senha;
 
@@ -13,12 +15,11 @@ class Cliente
     private string $sobrenome;
     private Email $email;
     private string $telefone;
-    private string $celular;
+    private Celular $celular;
     private Senha $senha;
     private string $descricao;
     private Cpf $cpf;
-    private \DateTime $data_nasc;
-    private int $id_endereco;
+    private Data_nasc $data_nasc;
 
     public function setId(int $id): void
     {
@@ -27,6 +28,9 @@ class Cliente
 
     public function getId(): int
     {
+        if (!isset($this->id)) {
+            return 0;
+        }
         return $this->id;
     }
 
@@ -37,6 +41,9 @@ class Cliente
 
     public function getNome(): string
     {
+        if (!isset($this->nome)) {
+            return "";
+        }
         return $this->nome;
     }
 
@@ -47,6 +54,9 @@ class Cliente
 
     public function getSobrenome(): string
     {
+        if (!isset($this->sobrenome)) {
+            return "";
+        }
         return $this->sobrenome;
     }
 
@@ -57,6 +67,9 @@ class Cliente
 
     public function getEmail(): Email
     {
+        if (!isset($this->email)) {
+            return new Email("");
+        }
         return $this->email;
     }
 
@@ -67,16 +80,22 @@ class Cliente
 
     public function getTelefone(): string
     {
+        if (!isset($this->telefone)) {
+            return "";
+        }
         return $this->telefone;
     }
 
-    public function setCelular(string $celular): void
+    public function setCelular(Celular $celular): void
     {
         $this->celular = $celular;
     }
 
-    public function getCelular(): string
+    public function getCelular(): Celular
     {
+        if (!isset($this->celular)) {
+            return new Celular("");
+        }
         return $this->celular;
     }
 
@@ -87,6 +106,9 @@ class Cliente
 
     public function getSenha(): Senha
     {
+        if (!isset($this->senha)) {
+            return new Senha("");
+        }
         return $this->senha;
     }
 
@@ -97,6 +119,9 @@ class Cliente
 
     public function getDescricao(): string
     {
+        if (!isset($this->descricao)) {
+            return "";
+        }
         return $this->descricao;
     }
 
@@ -107,27 +132,23 @@ class Cliente
 
     public function getCpf(): Cpf
     {
+        if (!isset($this->cpf)) {
+            return new Cpf("");
+        }
         return $this->cpf;
     }
 
-    public function setData_nasc(\DateTime $data_nasc): void
+    public function setData_nasc(Data_nasc $data_nasc): void
     {
         $this->data_nasc = $data_nasc;
     }
 
-    public function getData_nasc(): \DateTime
+    public function getData_nasc(): Data_nasc
     {
+        if (!isset($this->data_nasc)) {
+            return new Data_nasc("");
+        }
         return $this->data_nasc;
-    }
-
-    public function setId_endereco(int $id_endereco): void
-    {
-        $this->id_endereco = $id_endereco;
-    }
-
-    public function getId_endereco(): int
-    {
-        return $this->id_endereco;
     }
 }
 

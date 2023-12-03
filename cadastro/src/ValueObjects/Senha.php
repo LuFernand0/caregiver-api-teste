@@ -11,7 +11,7 @@ class Senha
     public function __construct(string $senha)
     {
         $this->senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-        return true;
+        return $this->senha = $senha;
     }
 
     public function __toString(): string
