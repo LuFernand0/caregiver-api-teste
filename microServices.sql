@@ -44,9 +44,6 @@ create table cuidador (
 		references endereco(id)
 );
 
-drop table cuidador;
-drop table formacao;
-
 create table formacao (
 	id int(4) primary key,
     formacao varchar(60),
