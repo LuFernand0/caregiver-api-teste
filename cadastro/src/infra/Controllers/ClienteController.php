@@ -19,6 +19,11 @@ class ClienteController implements ClienteRepository
     {
         $sql = "INSERT INTO cliente (id,nome, sobrenome, email, telefone, celular, senha, descricao, cpf, data_nasc) VALUES (:id, :nome, :sobrenome, :email, :telefone, :celular, :senha, :descricao, :cpf, :data_nasc)";
         $stmt = $this->conn->prepare($sql);
+        
+        if ($cliente->getEmail() == "" or $cliente->getCpf() == "") {
+            return false;
+        }
+
         $stmt->execute([
             "id" => $cliente->getId(),
             "nome" => $cliente->getNome(),
@@ -31,9 +36,6 @@ class ClienteController implements ClienteRepository
             "cpf" => $cliente->getCpf(),
             "data_nasc" => $cliente->getData_nasc()
         ]);
-        if ($cliente->getEmail() == "" or $cliente->getCpf() == "") {
-            return false;
-        }
         return true;
     }
 
