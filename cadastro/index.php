@@ -2,18 +2,25 @@
 
 require_once "vendor/autoload.php";
 
-use App\Entities\Cliente;
+use App\Domain\Entities\Cliente;
+use App\Domain\ValueObjects\SenhaOriginal;
+use App\infra\Controllers\ClienteController;
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 
 $cliente = new Cliente();
+$clienteController = new ClienteController();
+
 $request = json_decode(file_get_contents("php://input"));
 $arrayRequest = get_object_vars($request);
 
 
 $geradorId = date('y') . rand(10, 99);
+while ($clienteController->verificarId($geradorId) != []) {
+    $geradorId = date('y') . rand(10, 99);
+}
 $cliente->setId($geradorId);
 
 foreach ($arrayRequest as $key => $value) {
@@ -21,21 +28,16 @@ foreach ($arrayRequest as $key => $value) {
     $excessoes = ["Email", "Senha", "Cpf", "Celular", "Data_nasc"];
 
     if (in_array(ucfirst($key), $excessoes)) {
-        $classe = "App\\ValueObjects\\" . ucfirst($key);
-        if (ucfirst($key) === "Senha") {
-            $value = password_hash($value, PASSWORD_DEFAULT);
-            $value = new $classe($value);
-        } else {
-            $value = new $classe($value);
-        }
+        $classe = "App\\Domain\\ValueObjects\\" . ucfirst($key);
+        $value = new $classe($value);
     }
     if (method_exists($cliente, $metodo)) {
         $cliente->$metodo($value);
     }
 }
 
-$cadastrar = new \App\Controllers\ClienteController();
-if ($cadastrar->salvar($cliente)) {
+
+if ($clienteController->salvar($cliente)) {
     http_response_code(200);
     $response = [
         "status" => "success",
