@@ -37,7 +37,6 @@ create table cuidador (
     descricao text,
     celular varchar(11) not null,
     telefone varchar(10),
-    formacao varchar(60),
     cpf char(11) not null,
     data_nasc date not null,
     id_endereco int(4),
@@ -45,6 +44,18 @@ create table cuidador (
 		references endereco(id)
 );
 
+drop table cuidador;
+drop table formacao;
+
+create table formacao (
+	id int(4) primary key,
+    formacao varchar(60),
+    id_cuidador int(4),
+    constraint fk_cuid_for foreign key (id_cuidador)
+		references cuidador(id)
+);
+
 select * from cuidador;
 select * from cliente;
 select * from endereco;
+select * from formacao;
