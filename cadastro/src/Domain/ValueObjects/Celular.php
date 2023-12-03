@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\ValueObjects;
+namespace App\Domain\ValueObjects;
 
 class Celular
 {

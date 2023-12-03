@@ -1,10 +1,10 @@
 <?php 
 
-namespace App\Controllers;
+namespace App\infra\Controllers;
 
-use App\Database\MySql;
-use App\Entities\Cliente;
-use App\Repositories\ClienteRepository;
+use App\infra\Database\MySql;
+use App\Domain\Entities\Cliente;
+use App\Domain\Repositories\ClienteRepository;
 
 class ClienteController implements ClienteRepository
 {
@@ -32,6 +32,16 @@ class ClienteController implements ClienteRepository
             "data_nasc" => $cliente->getData_nasc()
         ]);
         return true;
+    }
+
+    public function verificarId(int $id): array
+    {
+        $result = [];
+        $sql = "SELECT id FROM cliente WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(["id" => $id]);
+        $result = $stmt->fetchAll();
+        return $result;
     }
 }
 
