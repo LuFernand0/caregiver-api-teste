@@ -31,6 +31,9 @@ class ClienteController implements ClienteRepository
             "cpf" => $cliente->getCpf(),
             "data_nasc" => $cliente->getData_nasc()
         ]);
+        if ($cliente->getEmail() == "" or $cliente->getCpf() == "") {
+            return false;
+        }
         return true;
     }
 

@@ -12,9 +12,8 @@ header("Access-Control-Allow-Methods: POST");
 
 $cliente = new Cliente();
 $clienteController = new ClienteController();
-
 $request = json_decode(file_get_contents("php://input"));
-$arrayRequest = get_object_vars($request);
+$arrayRequest = get_object_vars($request ?? new stdClass());
 
 
 $geradorId = date('y') . rand(10, 99);

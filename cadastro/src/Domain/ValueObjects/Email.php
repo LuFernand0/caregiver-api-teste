@@ -9,6 +9,9 @@ class Email
 
     public function __construct(string $email)
     {
+        if ($email === '') {
+            return $this->email = $email;
+        }
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return $this->email = $email;
         } else {

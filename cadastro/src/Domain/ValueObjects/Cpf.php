@@ -10,7 +10,9 @@ class Cpf
     {
         // Remover caracteres não numéricos do CPF
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
-
+        if ($cpf === '') {
+            return $this->cpf = $cpf;
+        }
         // Verificar se o CPF tem 11 dígitos
         if (strlen($cpf) !== 11) {
             return throw new \Exception("CPF invalido!");
